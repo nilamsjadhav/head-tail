@@ -1,8 +1,9 @@
 const { splitLines, firstLines, joinLines } = require('./helpers.js');
 
-const firstNLines = function (content) {
+const firstNLines = function (content, count) {
   const lines = splitLines(content);
-  const firstTenLines = firstLines(lines, 10);
+  const numOfLines = count || 10;
+  const firstTenLines = firstLines(lines, numOfLines);
   return joinLines(firstTenLines);
 };
 

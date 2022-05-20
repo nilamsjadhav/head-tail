@@ -1,5 +1,5 @@
 **Do:**
-- [ ] Implement -n options.
+- [ ] Refactor firstNLines function.
 - [ ] Implement -c options.
 - [ ] Make head work for more than one file.
 - [ ] take arguments in object.
@@ -24,3 +24,4 @@
 - [x] test joinLines.
 - [x] Separate helper functions in different file.
 - [x] Extract function for take out first lines from array.
+- [x] Implement -n options.
