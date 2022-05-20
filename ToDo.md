@@ -1,8 +1,10 @@
 **Do:**
+- [ ] Implement -n options.
+- [ ] Implement -c options.
+- [ ] Make head work for more than one file.
+- [ ] take arguments in object.
+- [ ] Extract '\n' line to constant.
 - [ ] Make head work for text instead of reading input from file.
-- [ ] Separate string functions in different file.
-- [ ] Extract function for take out first lines from array.
-- [ ] 
 
 **Maybe:**
 
@@ -20,3 +22,5 @@
 - [x] Write string functions for split and join lines.
 - [x] test splitLines.
 - [x] test joinLines.
+- [x] Separate helper functions in different file.
+- [x] Extract function for take out first lines from array.

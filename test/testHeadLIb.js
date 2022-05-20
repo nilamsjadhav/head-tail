@@ -1,6 +1,5 @@
 const assert = require('assert');
-const lib = require('../src/headLib.js');
-const { firstNLines, splitLines, joinLines, firstLines } = lib;
+const { firstNLines } = require('../src/headLib.js');
 
 describe('firstNLines', () => {
   it('should return first line', () => {
@@ -28,46 +27,5 @@ describe('firstNLines', () => {
     const content = '1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11'; 
     const expected = '1\n2\n3\n4\n5\n6\n7\n8\n9\n10'; 
     assert.strictEqual(firstNLines(content), expected);
-  });
-});
-
-describe('splitLines', () => {
-  it('should split a line.', () => {
-    assert.deepStrictEqual(splitLines('hello'), ['hello']);
-    assert.deepStrictEqual(splitLines('bye'), ['bye']);
-  });
-
-  it('should split two lines.', () => {
-    assert.deepStrictEqual(splitLines('good\nthoughts'), ['good', 'thoughts']);
-    assert.deepStrictEqual(splitLines('soar\nhigh'), ['soar', 'high']);
-  });
-
-  it('should split more than two lines.', () => {
-    assert.deepStrictEqual(splitLines('1\n2\n3'), ['1', '2', '3']);
-  });
-});
-
-describe('joinLines', () => {
-  it('should join a line.', () => {
-    assert.deepStrictEqual(joinLines(['hello']), 'hello');
-    assert.deepStrictEqual(joinLines(['bye']), 'bye');
-  });
-
-  it('should join two lines.', () => {
-    assert.deepStrictEqual(joinLines(['good', 'thoughts']), 'good\nthoughts');
-    assert.deepStrictEqual(joinLines(['soar', 'high']), 'soar\nhigh');
-  });
-
-  it('should join more than two lines.', () => {
-    assert.deepStrictEqual(joinLines(['1', '2', '3']), '1\n2\n3');
-  });
-});
-
-describe('firstLines', () => {
-  it('should give a line', () => {
-    assert.deepStrictEqual(firstLines(['bye'], 1), ['bye']);
-  });
-  it('should give a line when two lines give', () => {
-    assert.deepStrictEqual(firstLines(['bye', 'hello'], 1), ['bye']);
   });
 });
