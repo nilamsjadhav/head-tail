@@ -1,9 +1,5 @@
 **Do:**
 - [ ] Make head work for text instead of reading input from file.
-- [ ] consider array instead of string.
-- [ ] Write string functions for split and join lines.
-- [ ] test splitLines.
-- [ ] test joinLines.
 - [ ] Separate string functions in different file.
 
 **Maybe:**
@@ -18,3 +14,7 @@
 - [x] Create headLib.js
 - [x] Add code into headLib.js
 - [x] Make firstNLines work for default behaviour (Give first 10 lines).
+- [x] consider array instead of string.
+- [x] Write string functions for split and join lines.
+- [x] test splitLines.
+- [x] test joinLines.
