@@ -1,13 +1,14 @@
 **Do:**
 - [ ] Refactor firstNLines function.
-- [ ] Implement -c options.
 - [ ] Make head work for more than one file.
-- [ ] take arguments in object.
 - [ ] Make head work for text instead of reading input from file.
-- [ ] change contract of helper functions.
 **Maybe:**
 
 **Done:**
+- [x] take arguments in object.
+- [x] Implement -c options.
+- [x] change contract of helper functions.
+- [x] write parseArgs function to parse argument.
 - [x] Establish contract for head.
 - [x] Create synopsis in README.
 - [x] Investigate how head works.
