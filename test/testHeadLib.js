@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { firstNLines } = require('../src/headLib.js');
+const { firstNLines, head } = require('../src/headLib.js');
 
 describe('firstNLines', () => {
   it('should give first line', () => {
@@ -44,5 +44,20 @@ describe('firstNLines', () => {
 
   it('should give all lines if count is greater than number of lines', () => {
     assert.strictEqual(firstNLines('1\n2\n3', '\n', 4), '1\n2\n3');
+  });
+});
+
+const readData = function(mockFile, content){
+  return function (filename, encoding) {
+    assert.strictEqual(mockFile, filename);
+    assert.strictEqual(encoding, 'utf8');
+    return content;
+  };
+};
+
+describe('head', () => {
+  it('should give a line', () => {
+    const mockedReadFileSync = readData('sample.txt', 'good');
+    assert.strictEqual(head(mockedReadFileSync, 'sample.txt'), 'good');
   });
 });

@@ -1,11 +1,12 @@
 **Do:**
+- [ ] Make head work for a file
 - [ ] Make head work for more than one file.
-- [ ] Make head work for text instead of reading input from file.
-- [ ] Implement -c options.
 - [ ] Refactor firstNLines function.
 **Maybe:**
 
 **Done:**
+- [x] Implement -c options.
+- [x] Make head work for text instead of reading input from file.
 - [x] change contract of firstNLines function.
 - [x] take arguments in object.
 - [x] change contract of helper functions.
