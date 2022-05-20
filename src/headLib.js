@@ -7,9 +7,17 @@ const firstNLines = function (content, separator, count) {
   return joinLines(firstTenLines, separator);
 };
 
-const head = function(readFile, ...args){
+const head = function (readFile, args) {
   const { filename, separator, count } = parseArgs(args);
-  const content = readFile(filename, 'utf8');
+  let content = '';
+  try {
+    content = readFile(filename, 'utf8');
+  } catch (error) {
+    throw {
+      name: filename,
+      message: 'File not found'
+    };
+  }
   return firstNLines(content, separator, count);
 };
 

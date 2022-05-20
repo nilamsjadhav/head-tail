@@ -13,7 +13,7 @@ describe('parseArgs', () => {
   });
 
   it('should parse filename and -c option', () => {
-    const expected = { filename: 'sample.txt', count: 2, separator: ' ' };
+    const expected = { filename: 'sample.txt', count: 2, separator: '' };
     assert.deepStrictEqual(parseArgs(['-c', '2', 'sample.txt']), expected);
   });
 });

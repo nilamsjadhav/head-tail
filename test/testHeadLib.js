@@ -58,6 +58,26 @@ const readData = function(mockFile, content){
 describe('head', () => {
   it('should give a line', () => {
     const mockedReadFileSync = readData('sample.txt', 'good');
-    assert.strictEqual(head(mockedReadFileSync, 'sample.txt'), 'good');
+    assert.strictEqual(head(mockedReadFileSync, ['sample.txt']), 'good');
+  });
+
+  it('should give a line when -n option provided with 1', () => {
+    const mockedReadFileSync = readData('sample.txt', 'good');
+    const args = ['-n', '1', 'sample.txt'];
+    assert.strictEqual(head(mockedReadFileSync, args), 'good');
+  });
+
+  it('should give 3 characters when -c option provided with 3', () => {
+    const mockedReadFileSync = readData('sample.txt', 'good');
+    const args = ['-c', '3', 'sample.txt'];
+    assert.strictEqual(head(mockedReadFileSync, args), 'goo');
+  });
+
+  it('should give provided line', () => {
+    const mockedReadFileSync = readData('sample.txt', 'good');
+    const args = ['missing.txt'];
+    assert.throws(() => head(mockedReadFileSync, args), {
+      name: 'missing.txt', message: 'File not found'
+    });
   });
 });
