@@ -1,6 +1,6 @@
-const splitLines = (lines) => lines.split('\n');
+const splitLines = (lines, separator) => lines.split(separator);
 
-const joinLines = (lines) => lines.join('\n');
+const joinLines = (lines, separator) => lines.join(separator);
 
 const firstLines = (lines, limit) => lines.slice(0, limit);
 

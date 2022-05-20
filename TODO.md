@@ -3,9 +3,8 @@
 - [ ] Implement -c options.
 - [ ] Make head work for more than one file.
 - [ ] take arguments in object.
-- [ ] Extract '\n' line to constant.
 - [ ] Make head work for text instead of reading input from file.
-
+- [ ] change contract of helper functions.
 **Maybe:**
 
 **Done:**
@@ -25,3 +24,4 @@
 - [x] Separate helper functions in different file.
 - [x] Extract function for take out first lines from array.
 - [x] Implement -n options.
+- [x] Extract '\n' to  a constant.
