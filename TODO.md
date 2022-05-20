@@ -2,13 +2,13 @@
 - [ ] Make head work for more than one file.
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs
-- [ ] Implement main.
 - [ ] Report error if file not found.
 - [ ] Report error if arguments are invalid.
 - [ ] Display usage if argument not specified.
 **Maybe:**
 
 **Done:**
+- [x] Implement main.
 - [x] Make head work for a file
 - [x] Implement -c options.
 - [x] Make head work for text instead of reading input from file.
