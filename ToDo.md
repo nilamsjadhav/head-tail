@@ -1,6 +1,8 @@
 **Do:**
 - [ ] Make head work for text instead of reading input from file.
 - [ ] Separate string functions in different file.
+- [ ] Extract function for take out first lines from array.
+- [ ] 
 
 **Maybe:**
 

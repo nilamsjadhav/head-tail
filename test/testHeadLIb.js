@@ -1,5 +1,6 @@
 const assert = require('assert');
-const { firstNLines, splitLines, joinLines } = require('../src/headLib.js');
+const lib = require('../src/headLib.js');
+const { firstNLines, splitLines, joinLines, firstLines } = lib;
 
 describe('firstNLines', () => {
   it('should return first line', () => {
@@ -59,5 +60,14 @@ describe('joinLines', () => {
 
   it('should join more than two lines.', () => {
     assert.deepStrictEqual(joinLines(['1', '2', '3']), '1\n2\n3');
+  });
+});
+
+describe('firstLines', () => {
+  it('should give a line', () => {
+    assert.deepStrictEqual(firstLines(['bye'], 1), ['bye']);
+  });
+  it('should give a line when two lines give', () => {
+    assert.deepStrictEqual(firstLines(['bye', 'hello'], 1), ['bye']);
   });
 });
