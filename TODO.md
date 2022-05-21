@@ -4,11 +4,13 @@
 - [ ] Refactor parseArgs
 - [ ] Report error if file not found.
 - [ ] Report error if arguments are invalid.
-- [ ] Display usage if argument not specified.
+- [ ] separate testcases.
+- [ ] modify structure of output of parseArgs
 **Maybe:**
 
 **Done:**
 - [x] Implement main.
+- [x] Display usage if argument not specified.
 - [x] Make head work for a file
 - [x] Implement -c options.
 - [x] Make head work for text instead of reading input from file.

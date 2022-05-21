@@ -7,19 +7,27 @@ const firstNLines = function (content, separator, count) {
   return joinLines(firstTenLines, separator);
 };
 
+const getSeparator = function (option) {
+  const separators = { 'count': '\n', 'bytes': '' };
+  const key = Object.keys(option);
+  return key.length === 0 ? '\n' : separators[key];
+};
+
 const head = function (readFile, args) {
-  const { filename, separator, count } = parseArgs(args);
+  const { filename, option } = parseArgs(args);
+  const separator = getSeparator(option);
   let content = '';
   try {
-    content = readFile(filename, 'utf8');
+    content = readFile(...filename, 'utf8');
   } catch (error) {
     throw {
-      name: filename,
       message: 'File not found'
     };
   }
+  const count = Object.values(option);
   return firstNLines(content, separator, count);
 };
 
 exports.firstNLines = firstNLines;
 exports.head = head;
+exports.getSeparator = getSeparator;
