@@ -9,7 +9,7 @@ const main = () => {
       throw { message: 'usage: head [-n lines | -c bytes] [file ...]'};
     }
     if (args.length !== 1) {
-      validateArguments(args.toString());
+      validateArguments(args.join(''));
     }
     console.log(head(fs.readFileSync, process.argv.slice(2)));
   } catch (error) {

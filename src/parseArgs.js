@@ -12,8 +12,9 @@ const structureOption = function (options) {
 
 const findFiles = function (args) {
   const files = args.match(/[^-][a-zA-Z].*/g);
-  if (files === null) {
-    return;
+  const argsList = args.split(' ');
+  if (argsList.length === 1 || files === null) {
+    return [args];
   }
   const filenames = files.toString().split(' ');
   return filenames.filter(file => file);

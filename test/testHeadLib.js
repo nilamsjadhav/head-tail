@@ -77,7 +77,7 @@ describe('head', () => {
     const mockedReadFileSync = readData('sample.txt', 'good');
     const args = ['missing.txt'];
     assert.throws(() => head(mockedReadFileSync, args), {
-      message: 'head: No such file or directory'
+      message: 'head: missing.txt: No such file or directory'
     });
   });
 });

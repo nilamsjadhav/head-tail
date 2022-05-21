@@ -15,7 +15,7 @@ const head = function (readFile, args) {
   try {
     content = readFile(...filename, 'utf8');
   } catch (error) {
-    throw { message: 'head: No such file or directory'};
+    throw { message: `head: ${filename}: No such file or directory`};
   }
   return firstNLines(content, separator, option.value);
 };
