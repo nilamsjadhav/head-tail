@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { firstNLines, head, getSeparator } = require('../src/headLib.js');
+const { firstNLines, head } = require('../src/headLib.js');
 
 describe('firstNLines', () => {
   it('should give first line', () => {
@@ -77,19 +77,7 @@ describe('head', () => {
     const mockedReadFileSync = readData('sample.txt', 'good');
     const args = ['missing.txt'];
     assert.throws(() => head(mockedReadFileSync, args), {
-      message: 'File not found'
+      message: 'head: No such file or directory'
     });
-  });
-});
-
-describe('getSeparator', () => {
-  it('should give newline separator when -n option given', () => {
-    assert.equal(getSeparator({key: 'count', value: 2}), '\n');
-  });
-  it('should give space separator when -c option given', () => {
-    assert.equal(getSeparator({key: 'bytes', value: 2}), '');
-  });
-  it('should give newline separator when no option given', () => {
-    assert.equal(getSeparator({}), '\n');
   });
 });

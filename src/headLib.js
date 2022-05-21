@@ -1,15 +1,11 @@
-const { splitLines, firstLines, joinLines } = require('./helpers.js');
+const lib = require('./helpers.js');
+const { splitLines, firstLines, joinLines, getSeparator } = lib;
 const { parseArgs } = require('./parseArgs.js');
 
 const firstNLines = function (content, separator, count) {
   const lines = splitLines(content, separator);
-  const firstTenLines = firstLines(lines, count);
-  return joinLines(firstTenLines, separator);
-};
-
-const getSeparator = function (option) {
-  const separators = { 'count': '\n', 'bytes': '' };
-  return option.key === undefined ? '\n' : separators[option.key];
+  const topContent = firstLines(lines, count);
+  return joinLines(topContent, separator);
 };
 
 const head = function (readFile, args) {
@@ -19,13 +15,10 @@ const head = function (readFile, args) {
   try {
     content = readFile(...filename, 'utf8');
   } catch (error) {
-    throw {
-      message: 'File not found'
-    };
+    throw { message: 'head: No such file or directory'};
   }
   return firstNLines(content, separator, option.value);
 };
 
 exports.firstNLines = firstNLines;
 exports.head = head;
-exports.getSeparator = getSeparator;

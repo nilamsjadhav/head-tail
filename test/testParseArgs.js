@@ -1,22 +1,23 @@
 const assert = require('assert');
-const { parseArgs, findFiles, structureOption} = require('../src/parseArgs.js');
+const lib = require('../src/parseArgs.js');
+const { parseArgs, findFiles, structureOption} = lib;
 
 describe('parseArgs', () => {
   it('should parse filename', () => {
-    const optionValue = { key: 'count', value: 10 };
-    const expected = { filename: ['sample.txt'], option: optionValue };
+    const options = { key: 'count', value: 10 };
+    const expected = { filename: ['sample.txt'], option: options };
     assert.deepStrictEqual(parseArgs(['sample.txt']), expected);
   });
 
   it('should parse filename and -n option', () => {
-    const optionValue = { key: 'count', value: 2 };
-    const expected = { filename: ['sample.txt'], option: optionValue};
+    const options = { key: 'count', value: 2 };
+    const expected = { filename: ['sample.txt'], option: options};
     assert.deepStrictEqual(parseArgs(['-n', '2', 'sample.txt']), expected);
   });
 
   it('should parse filename and -c option', () => {
-    const optionValue = { key: 'bytes', value: 2 };
-    const expected = {filename: ['sample.txt'], option: optionValue };
+    const options = { key: 'bytes', value: 2 };
+    const expected = {filename: ['sample.txt'], option: options };
     assert.deepStrictEqual(parseArgs(['-c', '2', 'sample.txt']), expected);
   });
 });
@@ -33,6 +34,7 @@ describe('findFilename', () => {
   it('should give file name when -n and file name given', () => {
     assert.deepStrictEqual(findFiles('-n 1 sample.txt'), ['sample.txt']);
   });
+
   it('should give file name when two file names given', () => {
     const expected = ['sample.txt', 'demo.txt'];
     assert.deepStrictEqual(findFiles('sample.txt demo.txt'), expected);

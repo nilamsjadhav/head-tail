@@ -1,5 +1,6 @@
 const assert = require('assert');
-const { splitLines, joinLines, firstLines } = require('../src/helpers.js');
+const lib = require('../src/helpers.js');
+const { splitLines, joinLines, firstLines, getSeparator, validateArguments} = lib;
 
 describe('splitLines', () => {
   it('should split a line.', () => {
@@ -41,5 +42,31 @@ describe('firstLines', () => {
   });
   it('should give a line when two lines give', () => {
     assert.deepStrictEqual(firstLines(['bye', 'hello'], 1), ['bye']);
+  });
+});
+
+describe('getSeparator', () => {
+  it('should give newline separator when -n option given', () => {
+    assert.equal(getSeparator({key: 'count', value: 2}), '\n');
+  });
+  it('should give space separator when -c option given', () => {
+    assert.equal(getSeparator({key: 'bytes', value: 2}), '');
+  });
+  it('should give newline separator when no option given', () => {
+    assert.equal(getSeparator({}), '\n');
+  });
+});
+
+describe('validateArguments', () => {
+  it('should throw illegal option error and give usage', () => {
+    assert.throws(() => validateArguments('-b 1'), {
+      message: 'illegal option\nhead [-n lines | -c bytes] [file ...]'
+    });
+  });
+
+  it('should throw illegal option error and give usage', () => {
+    assert.throws(() => validateArguments('-n 1 -c 1'), {
+      message: 'head: can\'t combine line and byte counts'
+    });
   });
 });

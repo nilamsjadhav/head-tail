@@ -1,11 +1,11 @@
 **Do:**
 - [ ] Make head work for more than one file.
 - [ ] Refactor firstNLines function.
-- [ ] Report error if arguments are invalid.
-- [ ] separate testcases.
 **Maybe:**
 
 **Done:**
+- [x] Report error if arguments are invalid.
+- [x] separate testcases.
 - [x] modify structure of output of parseArgs
 - [x] Refactor structureOption function.
 - [x] Report error if file not found.
