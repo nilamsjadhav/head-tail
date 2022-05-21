@@ -9,8 +9,7 @@ const firstNLines = function (content, separator, count) {
 
 const getSeparator = function (option) {
   const separators = { 'count': '\n', 'bytes': '' };
-  const key = Object.keys(option);
-  return key.length === 0 ? '\n' : separators[key];
+  return option.key === undefined ? '\n' : separators[option.key];
 };
 
 const head = function (readFile, args) {
@@ -24,8 +23,7 @@ const head = function (readFile, args) {
       message: 'File not found'
     };
   }
-  const count = Object.values(option);
-  return firstNLines(content, separator, count);
+  return firstNLines(content, separator, option.value);
 };
 
 exports.firstNLines = firstNLines;

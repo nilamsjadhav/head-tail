@@ -3,17 +3,20 @@ const { parseArgs, findFiles, structureOption} = require('../src/parseArgs.js');
 
 describe('parseArgs', () => {
   it('should parse filename', () => {
-    const expected = { filename: ['sample.txt'], option: { count: 10 } };
+    const optionValue = { key: 'count', value: 10 };
+    const expected = { filename: ['sample.txt'], option: optionValue };
     assert.deepStrictEqual(parseArgs(['sample.txt']), expected);
   });
 
   it('should parse filename and -n option', () => {
-    const expected = { filename: ['sample.txt'], option: { count: 2 }};
+    const optionValue = { key: 'count', value: 2 };
+    const expected = { filename: ['sample.txt'], option: optionValue};
     assert.deepStrictEqual(parseArgs(['-n', '2', 'sample.txt']), expected);
   });
 
   it('should parse filename and -c option', () => {
-    const expected = {filename: ['sample.txt'], option: { bytes: 2 } };
+    const optionValue = { key: 'bytes', value: 2 };
+    const expected = {filename: ['sample.txt'], option: optionValue };
     assert.deepStrictEqual(parseArgs(['-c', '2', 'sample.txt']), expected);
   });
 });
@@ -37,11 +40,13 @@ describe('findFilename', () => {
 });
 
 describe('structureOption', () => {
-  it('should give option and value of it.', () => {
-    assert.deepStrictEqual(structureOption(['-n 1']), {count: 1});
+  it('should give count as key and 1 as value.', () => {
+    const expected = { key: 'count', value: 1 };
+    assert.deepStrictEqual(structureOption(['-n 1']), expected);
   });
 
-  it('should give option and value of it.', () => {
-    assert.deepStrictEqual(structureOption(['-c 1']), {bytes: 1});
+  it('should give bytes as key and 1 as value.', () => {
+    const expected = { key: 'bytes', value: 1 };
+    assert.deepStrictEqual(structureOption(['-c 1']), expected);
   });
 });
