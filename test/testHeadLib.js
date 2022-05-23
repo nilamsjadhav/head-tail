@@ -55,29 +55,33 @@ const readData = function(mockFile, content){
   };
 };
 
+const displayContent = function (text) {
+  return function (content) {
+    assert.strictEqual(content, text);
+  };
+};
+
 describe('head', () => {
+  const mockedReadFileSync = readData('sample.txt', 'good');
+  const mockedLog = displayContent('good');
+  const mockedErrorLog = displayContent('good');
   it('should give a line', () => {
-    const mockedReadFileSync = readData('sample.txt', 'good');
-    assert.strictEqual(head(mockedReadFileSync, ['sample.txt']), 'good');
+    head(mockedReadFileSync, mockedLog, mockedErrorLog, ['sample.txt']);
   });
-
+  
   it('should give a line when -n option provided with 1', () => {
-    const mockedReadFileSync = readData('sample.txt', 'good');
     const args = ['-n', '1', 'sample.txt'];
-    assert.strictEqual(head(mockedReadFileSync, args), 'good');
+    head(mockedReadFileSync, mockedLog, mockedErrorLog, args);
   });
-
+  
   it('should give 3 characters when -c option provided with 3', () => {
-    const mockedReadFileSync = readData('sample.txt', 'good');
-    const args = ['-c', '3', 'sample.txt'];
-    assert.strictEqual(head(mockedReadFileSync, args), 'goo');
+    const args = ['-c', '4', 'sample.txt'];
+    head(mockedReadFileSync, mockedLog, mockedErrorLog, args);
   });
-
-  it('should give provided line', () => {
-    const mockedReadFileSync = readData('sample.txt', 'good');
-    const args = ['missing.txt'];
-    assert.throws(() => head(mockedReadFileSync, args), {
-      message: 'head: missing.txt: No such file or directory'
-    });
+  
+  it('should give error', () => {
+    const args = 'head: missing.txt: No such file or directory';
+    const mockedErrorLog = displayContent(args);
+    head(mockedReadFileSync, mockedLog, mockedErrorLog, ['missing.txt']);
   });
 });

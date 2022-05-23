@@ -1,12 +1,13 @@
 **Do:**
-- [ ] Make head work for more than one file.
 - [ ] Refactor firstNLines function.
-- [ ] Change error message when both arguments are not present.
-- [ ] change contract of structureOption.
-- [ ] Change error message in findFiles.
 **Maybe:**
 
 **Done:**
+- [x] Make head work for more than one file.
+- [X] Change error message when both arguments are not present.
+- [x] Change error message in findFiles.
+- [x] Modify validate arguments.
+- [x] change contract of structureOption.
 - [x] modify findFile.
 - [x] Report error if arguments are invalid.
 - [x] separate testcases.

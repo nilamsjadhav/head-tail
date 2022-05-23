@@ -1,11 +1,18 @@
-const findSwitch = (option) => option.join().match(/[^\d].*[a-z]/g);
+const decideSwitch = (args) => {
+  const option = args.join().match(/[^\d].*[a-z]/g);
+  return /^-\d/.test(args) ? ['-n'] : option;
+};
 
 const findValue = (option) => option.join().match(/\d/g);
 
 const structureOption = function (options) {
+  const parameters = options.match(/^-.*\d/g);
   const keys = { '-n': 'count', '-c': 'bytes' };
-  const option = findSwitch(options);
-  const value = + findValue(options);
+  if (parameters === null) {
+    return { key: 'count', value: 10 };
+  }
+  const option = decideSwitch(parameters);
+  const value = + findValue(parameters);
   const key = keys[option];
   return { key, value};
 };
@@ -22,16 +29,13 @@ const findFiles = function (args) {
 
 const parseArgs = function (args) {
   const parameters = args.join(' ');
-  const options = parameters.match(/^-.*\d/g);
+  const option = structureOption(parameters);
   const filename = findFiles(args);
-
-  let option = { key: 'count', value: 10 };
-  if (options !== null) {
-    option = structureOption(options);
-  }
   return { 'filename': filename, option };
 };
 
 exports.parseArgs = parseArgs;
 exports.findFiles = findFiles;
 exports.structureOption = structureOption;
+exports.decideSwitch = decideSwitch;
+exports.findValue = findValue;

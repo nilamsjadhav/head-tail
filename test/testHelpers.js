@@ -1,6 +1,6 @@
 const assert = require('assert');
 const lib = require('../src/helpers.js');
-const { splitLines, joinLines, firstLines, getSeparator, validateArguments} = lib;
+const { splitLines, joinLines, firstLines, getSeparator} = lib;
 
 describe('splitLines', () => {
   it('should split a line.', () => {
@@ -54,20 +54,5 @@ describe('getSeparator', () => {
   });
   it('should give newline separator when no option given', () => {
     assert.equal(getSeparator({}), '\n');
-  });
-});
-
-describe('validateArguments', () => {
-  it('should throw illegal option error and give usage', () => {
-    const usage = 'usage: head [-n lines | -c bytes] [file ...]';
-    assert.throws(() => validateArguments('-b 1'), {
-      message: `head: illegal option\n${usage}`
-    });
-  });
-
-  it('should throw illegal option error and give usage', () => {
-    assert.throws(() => validateArguments('-n 1 -c 1'), {
-      message: 'head: can\'t combine line and byte counts'
-    });
   });
 });
