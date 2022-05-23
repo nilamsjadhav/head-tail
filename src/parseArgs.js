@@ -11,19 +11,19 @@ const structureOption = function (options) {
 };
 
 const findFiles = function (args) {
-  const files = args.match(/[^-][a-zA-Z].*/g);
-  const argsList = args.split(' ');
-  if (argsList.length === 1 || files === null) {
-    return [args];
+  const option = [];
+  for (let index = 0; index < args.length; index++) {
+    if (!(args[index].includes('-') || /\d$/.test(args[index]))) {
+      option.push(args[index]);
+    }
   }
-  const filenames = files.toString().split(' ');
-  return filenames.filter(file => file);
+  return option;
 };
 
 const parseArgs = function (args) {
   const parameters = args.join(' ');
   const options = parameters.match(/^-.*\d/g);
-  const filename = findFiles(parameters);
+  const filename = findFiles(args);
 
   let option = { key: 'count', value: 10 };
   if (options !== null) {

@@ -8,9 +8,10 @@ const areBothOptionsPresent = (args) => {
 
 const areBothAbsent = (args) => {
   const isOnePresent = args.includes('-n') || args.includes('-c');
+  const usage = 'usage: head [-n lines | -c bytes] [file ...]';
   if (!isOnePresent) {
     throw {
-      message: 'illegal option\nhead [-n lines | -c bytes] [file ...]'
+      message: `head: illegal option\n${usage}`
     };
   }
 };

@@ -24,20 +24,33 @@ describe('parseArgs', () => {
 
 describe('findFilename', () => {
   it('should give file name when a file name given', () => {
-    assert.deepStrictEqual(findFiles('sample.txt'), ['sample.txt']);
+    assert.deepStrictEqual(findFiles(['sample.txt']), ['sample.txt']);
   });
 
   it('should give file name when -c and file name given', () => {
-    assert.deepStrictEqual(findFiles('-c 1 sample.txt'), ['sample.txt']);
+    assert.deepStrictEqual(findFiles(['-c', '1', 'sample.txt']), ['sample.txt']);
   });
 
   it('should give file name when -n and file name given', () => {
-    assert.deepStrictEqual(findFiles('-n 1 sample.txt'), ['sample.txt']);
+    assert.deepStrictEqual(findFiles(['-c', '1', 'sample.txt']), ['sample.txt']);
   });
 
   it('should give file name when two file names given', () => {
     const expected = ['sample.txt', 'demo.txt'];
-    assert.deepStrictEqual(findFiles('sample.txt demo.txt'), expected);
+    assert.deepStrictEqual(findFiles(['sample.txt', 'demo.txt']), expected);
+  });
+  it('should give file name when two options given', () => {
+    const actual = ['-c', '1', '-n', '2', 'demo.txt'];
+    assert.deepStrictEqual(findFiles(actual), ['demo.txt']);
+  });
+
+  it('should give file name when there is no space given between options', () => {
+    const actual = ['-n2', 'demo.txt'];
+    assert.deepStrictEqual(findFiles(actual), ['demo.txt']);
+  });
+  it('should give file name when number with hypen given', () => {
+    const actual = ['-2', 'demo.txt'];
+    assert.deepStrictEqual(findFiles(actual), ['demo.txt']);
   });
 });
 

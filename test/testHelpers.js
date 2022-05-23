@@ -59,8 +59,9 @@ describe('getSeparator', () => {
 
 describe('validateArguments', () => {
   it('should throw illegal option error and give usage', () => {
+    const usage = 'usage: head [-n lines | -c bytes] [file ...]';
     assert.throws(() => validateArguments('-b 1'), {
-      message: 'illegal option\nhead [-n lines | -c bytes] [file ...]'
+      message: `head: illegal option\n${usage}`
     });
   });
 

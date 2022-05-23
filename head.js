@@ -8,9 +8,7 @@ const main = () => {
     if (args.length === 0) {
       throw { message: 'usage: head [-n lines | -c bytes] [file ...]'};
     }
-    if (args.length !== 1) {
-      validateArguments(args.join(''));
-    }
+    validateArguments(args.join(''));
     console.log(head(fs.readFileSync, process.argv.slice(2)));
   } catch (error) {
     console.log(error.message);
