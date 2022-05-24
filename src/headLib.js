@@ -19,19 +19,20 @@ const readFile = function (readData, file, separator, value) {
   }
 };
 
-const displayOutput = function (result, log, errorLog) {
+const displayOutput = function ( result, log, errorLog ) {
+  let exitCode = 0;
   if (result.length === 1 && result[0].isRead) {
     log(result[0].text);
-    return;
   }
 
   result.forEach(element => {
     if (element.isRead) {
       log(`==> ${element.file} <==\n${element.text}\n`);
-      return;
     }    
     errorLog(element.text);
+    exitCode = 1;
   });
+  return exitCode;
 };
 
 const head = function (readFunc, log, errorLog, args) {
@@ -42,7 +43,7 @@ const head = function (readFunc, log, errorLog, args) {
   for (let index = 0; index < filename.length; index++) {
     result.push(readFile(readFunc, filename[index], separator, option.value));
   }
-  displayOutput(result, log, errorLog);
+  return displayOutput(result, log, errorLog);
 };
 
 exports.firstNLines = firstNLines;

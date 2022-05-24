@@ -22,7 +22,7 @@ const getOption = function (options) {
     return options;
   }
   const latestOption = options[options.length - 1];
-  if (latestOption.length > 2) {
+  if (latestOption.length > 2 || /^-\d/.test(latestOption)) {
     const option = latestOption.match(/^-[a-z]|^-\d+/g);
     const value = latestOption.match(/\d+/g);
     return [...option, ...value];

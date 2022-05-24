@@ -4,6 +4,7 @@
 **Maybe:**
 
 **Done:**
+- [x] add exitCode .
 - [x] Make head work for more than one file.
 - [X] Change error message when both arguments are not present.
 - [x] Change error message in findFiles.

@@ -95,11 +95,42 @@ describe('head', () => {
   });
 });
 
+const printContent = function () {
+  return function (content) {
+    this.push(content);
+  };
+};
+
 describe('displayOutput', () => {
   it('should display file contents', () => {
-    const mockedLog = displayContent.bind([]);
-    const mockedErrorLog = displayContent('good');
+    const mockedErrorLog = displayContent(['good']);
+    const actualContent = [];
+    const mockedLog = printContent(['good', 'hello']).bind(actualContent); 
+
     const result = [{ file: 'sample.txt', text: 'good', isRead: true }];
     displayOutput(result, mockedLog, mockedErrorLog);
+    assert.deepStrictEqual(actualContent, ['good']);
+  });
+
+  it('should display multiple lines', () => {
+    const mockedErrorLog = displayContent(['good']);
+    const actualContent = [];
+    const mockedLog = printContent(['good', 'hello']).bind(actualContent); 
+
+    const result = [{ file: 'sample.txt', text: 'good', isRead: true },
+{file: 'demo.txt', text: 'good', isRead: true }];
+    displayOutput(result, mockedLog, mockedErrorLog);
+    const expected = ['==> sample.txt <==\ngood\n', '==> demo.txt <==\ngood\n'];
+    assert.deepStrictEqual(actualContent, expected);
+  });
+
+  it('should display error', () => {
+    const mockedLog = displayContent(['good']);
+    const actualContent = [];
+    const mockedErrorLog = printContent(['good', 'hello']).bind(actualContent); 
+    const result = [{ file: 'sample.txt', text: 'good', isRead: false }];
+
+    displayOutput(result, mockedLog, mockedErrorLog);
+    assert.deepStrictEqual(actualContent, ['good']);
   });
 });
