@@ -9,7 +9,18 @@ const getSeparator = function (option) {
   return option.key === undefined ? '\n' : separators[option.key];
 };
 
+const findFiles = function (args) {
+  const option = [];
+  for (let index = 0; index < args.length; index++) {
+    if (!(args[index].includes('-') || /\d$/.test(args[index]))) {
+      option.push(args[index]);
+    }
+  }
+  return option;
+};
+
 exports.firstLines = firstLines;
 exports.joinLines = joinLines;
 exports.splitLines = splitLines;
 exports.getSeparator = getSeparator;
+exports.findFiles = findFiles;

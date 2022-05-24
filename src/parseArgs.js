@@ -1,41 +1,42 @@
-const decideSwitch = (args) => {
-  const option = args.join().match(/[^\d].*[a-z]/g);
-  return /^-\d/.test(args) ? ['-n'] : option;
-};
-
-const findValue = (option) => option.join().match(/\d/g);
+const { validateArgs } = require('./validateArguments.js');
+const { findFiles } = require('./library.js');
 
 const structureOption = function (options) {
-  const parameters = options.match(/^-.*\d/g);
   const keys = { '-n': 'count', '-c': 'bytes' };
-  if (parameters === null) {
+  if (options.length === 0) {
     return { key: 'count', value: 10 };
   }
-  const option = decideSwitch(parameters);
-  const value = + findValue(parameters);
+  const [option, num] = options;
+  const providedSwitch = option.match(/^-[a-z]/g);
+  
+  if (providedSwitch === null) {
+    return { key: 'count', value: +num };
+  }
+  const value = +num;
   const key = keys[option];
   return { key, value};
 };
 
-const findFiles = function (args) {
-  const option = [];
-  for (let index = 0; index < args.length; index++) {
-    if (!(args[index].includes('-') || /\d$/.test(args[index]))) {
-      option.push(args[index]);
-    }
+const getOption = function (options) {
+  if (options.length === 0) {
+    return options;
   }
-  return option;
+  const latestOption = options[options.length - 1];
+  if (latestOption.length > 2) {
+    const option = latestOption.match(/^-[a-z]|^-\d+/g);
+    const value = latestOption.match(/\d+/g);
+    return [...option, ...value];
+  }
+  return options;
 };
 
 const parseArgs = function (args) {
-  const parameters = args.join(' ');
-  const option = structureOption(parameters);
-  const filename = findFiles(args);
+  const parameters = validateArgs(args);
+  const option = structureOption(getOption(parameters[0]));
+  const filename = findFiles(parameters[1]);
   return { 'filename': filename, option };
 };
 
 exports.parseArgs = parseArgs;
-exports.findFiles = findFiles;
 exports.structureOption = structureOption;
-exports.decideSwitch = decideSwitch;
-exports.findValue = findValue;
+exports.getOption = getOption;

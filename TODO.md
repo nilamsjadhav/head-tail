@@ -1,5 +1,6 @@
 **Do:**
 - [ ] Refactor firstNLines function.
+- [ ] Refactor parseArgs.
 **Maybe:**
 
 **Done:**

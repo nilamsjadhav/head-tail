@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { firstNLines, head } = require('../src/headLib.js');
+const { firstNLines, head, displayOutput } = require('../src/headLib.js');
 
 describe('firstNLines', () => {
   it('should give first line', () => {
@@ -47,10 +47,11 @@ describe('firstNLines', () => {
   });
 });
 
-const readData = function(mockFile, content){
-  return function (filename, encoding) {
+const readData = function(mockFile, content, err){
+  return function (filename, encoding, errorLog) {
     assert.strictEqual(mockFile, filename);
     assert.strictEqual(encoding, 'utf8');
+    assert.strictEqual(errorLog, err);
     return content;
   };
 };
@@ -62,26 +63,43 @@ const displayContent = function (text) {
 };
 
 describe('head', () => {
-  const mockedReadFileSync = readData('sample.txt', 'good');
-  const mockedLog = displayContent('good');
-  const mockedErrorLog = displayContent('good');
   it('should give a line', () => {
+    const mockedReadFileSync = readData('sample.txt', 'good');
+    const mockedErrorLog = displayContent('good');
+    const mockedLog = displayContent('good');
     head(mockedReadFileSync, mockedLog, mockedErrorLog, ['sample.txt']);
   });
   
   it('should give a line when -n option provided with 1', () => {
+    const mockedReadFileSync = readData('sample.txt', 'good');
+    const mockedErrorLog = displayContent('good');
+    const mockedLog = displayContent('good');
     const args = ['-n', '1', 'sample.txt'];
     head(mockedReadFileSync, mockedLog, mockedErrorLog, args);
   });
   
   it('should give 3 characters when -c option provided with 3', () => {
+    const mockedReadFileSync = readData('sample.txt', 'good');
+    const mockedErrorLog = displayContent('good');
+    const mockedLog = displayContent('good');
     const args = ['-c', '4', 'sample.txt'];
     head(mockedReadFileSync, mockedLog, mockedErrorLog, args);
   });
   
   it('should give error', () => {
     const args = 'head: missing.txt: No such file or directory';
+    const mockedReadFileSync = readData('sample.txt', 'good');
     const mockedErrorLog = displayContent(args);
+    const mockedLog = displayContent('good');
     head(mockedReadFileSync, mockedLog, mockedErrorLog, ['missing.txt']);
+  });
+});
+
+describe('displayOutput', () => {
+  it('should display file contents', () => {
+    const mockedLog = displayContent.bind([]);
+    const mockedErrorLog = displayContent('good');
+    const result = [{ file: 'sample.txt', text: 'good', isRead: true }];
+    displayOutput(result, mockedLog, mockedErrorLog);
   });
 });

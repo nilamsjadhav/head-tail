@@ -1,6 +1,7 @@
 const assert = require('assert');
 const lib = require('../src/parseArgs.js');
-const { parseArgs, findFiles, structureOption, decideSwitch, findValue} = lib;
+const { findFiles } = require('../src/library.js');
+const { parseArgs, structureOption, getOption} = lib;
 
 describe('parseArgs', () => {
   it('should parse filename', () => {
@@ -22,7 +23,7 @@ describe('parseArgs', () => {
   });
 });
 
-describe('findFilename', () => {
+describe('findFiles', () => {
   it('should give file name when a file name given', () => {
     assert.deepStrictEqual(findFiles(['sample.txt']), ['sample.txt']);
   });
@@ -57,45 +58,33 @@ describe('findFilename', () => {
 });
 
 describe('structureOption', () => {
+  it('should give count as key and 10 as value.', () => {
+    const expected = { key: 'count', value: 10 };
+    assert.deepStrictEqual(structureOption([]), expected);
+  });
   it('should give count as key and 1 as value.', () => {
     const expected = { key: 'count', value: 1 };
-    assert.deepStrictEqual(structureOption('-n 1'), expected);
-  });
-
-  it('should give key and value when no space in options.', () => {
-    const expected = { key: 'count', value: 1 };
-    assert.deepStrictEqual(structureOption('-n1'), expected);
+    assert.deepStrictEqual(structureOption(['-n', '1']), expected);
   });
 
   it('should give bytes as key and 1 as value.', () => {
     const expected = { key: 'bytes', value: 1 };
-    assert.deepStrictEqual(structureOption('-c 1 demo'), expected);
-  });
-  it('should give count as key and 1 as value when switch not given.', () => {
-    const expected = { key: 'count', value: 1 };
-    assert.deepStrictEqual(structureOption('-1'), expected);
+    assert.deepStrictEqual(structureOption(['-c', '1']), expected);
   });
 });
 
-describe('decideSwitch', () => {
-  it('should give option', () => {
-    assert.deepStrictEqual(decideSwitch(['-c 1']), ['-c']);
+describe('getOption', () => {
+  it('should option and value', () => {
+    assert.deepStrictEqual(getOption(['-n1']), ['-n', '1']);
+  });
+  it('should option and value when negative number given', () => {
+    assert.deepStrictEqual(getOption(['-11']), ['-11', '11']);
+  });
+  it('should option and value when array length is 2', () => {
+    assert.deepStrictEqual(getOption(['-n', '1']), ['-n', '1']);
   });
 
-  it('should give option when no space is present in option and value', () => {
-    assert.deepStrictEqual(decideSwitch(['-n1']), ['-n']);
-  });
-
-  it('should give option when hypen and number is provided', () => {
-    assert.deepStrictEqual(decideSwitch(['-1']), ['-n']);
-  });
-});
-
-describe('findValue', () => {
-  it('should give value', () => {
-    assert.deepStrictEqual(findValue(['-n1']), ['1']);
-  });
-  it('should give value when space is present.', () => {
-    assert.deepStrictEqual(findValue(['-n 1']), ['1']);
+  it('should return same array when it is empty', () => {
+    assert.deepStrictEqual(getOption([]), []);
   });
 });
