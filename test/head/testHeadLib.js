@@ -1,5 +1,6 @@
 const assert = require('assert');
-const { firstNLines, head, displayOutput } = require('../src/headLib.js');
+const lib = require('../../src/head/headLib.js');
+const { firstNLines, head, displayOutput } = lib;
 
 describe('firstNLines', () => {
   it('should give first line', () => {

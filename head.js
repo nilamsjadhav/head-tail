@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { head } = require('./src/headLib.js');
+const { head } = require('./src/head/headLib.js');
 
 const main = () => {
   const args = process.argv.slice(2);

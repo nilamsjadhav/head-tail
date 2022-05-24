@@ -1,5 +1,5 @@
 const assert = require('assert');
-const lib = require('../src/validateArguments.js');
+const lib = require('../../src/head/validateArguments.js');
 const { validateArgs, isOptionInvalid, areBothPresent, extractOptions, isOptionFollowedByNumber, validate, groupBy } = lib;
 
 describe('validateArgs', () => {

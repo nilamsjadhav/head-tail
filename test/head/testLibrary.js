@@ -1,5 +1,5 @@
 const assert = require('assert');
-const lib = require('../src/library.js');
+const lib = require('../../src/head/library.js');
 const { splitLines, joinLines, firstLines, getSeparator} = lib;
 
 describe('splitLines', () => {

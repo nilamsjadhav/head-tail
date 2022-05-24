@@ -1,6 +1,6 @@
 const assert = require('assert');
-const lib = require('../src/parseArgs.js');
-const { findFiles } = require('../src/library.js');
+const lib = require('../../src/head/parseArgs.js');
+const { findFiles } = require('../../src/head/library.js');
 const { parseArgs, structureOption, getOption} = lib;
 
 describe('parseArgs', () => {
