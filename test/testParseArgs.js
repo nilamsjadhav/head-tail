@@ -78,7 +78,7 @@ describe('getOption', () => {
     assert.deepStrictEqual(getOption(['-n1']), ['-n', '1']);
   });
   it('should option and value when negative number given', () => {
-    assert.deepStrictEqual(getOption(['-11']), ['-11', '11']);
+    assert.deepStrictEqual(getOption(['-11']), ['-11', 11]);
   });
   it('should option and value when array length is 2', () => {
     assert.deepStrictEqual(getOption(['-n', '1']), ['-n', '1']);

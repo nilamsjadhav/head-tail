@@ -23,11 +23,13 @@ const displayOutput = function ( result, log, errorLog ) {
   let exitCode = 0;
   if (result.length === 1 && result[0].isRead) {
     log(result[0].text);
+    return exitCode;
   }
 
   result.forEach(element => {
     if (element.isRead) {
       log(`==> ${element.file} <==\n${element.text}\n`);
+      return;
     }    
     errorLog(element.text);
     exitCode = 1;
