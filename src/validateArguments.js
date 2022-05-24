@@ -17,17 +17,18 @@ const isOneOfBothPresent = function (context) {
   return context.includes('-c') || context.includes('-n');
 };
 
+const isDigitAbsent = function (options) {
+  const [hypen, option] = options;
+  return !isFinite(+option);
+};
+
 const isOptionInvalid = function (context) {
   const formattedArgs = formatArgs(context);
   const [option] = formattedArgs;
   const [hypen, letter] = option.split('');
   
-  let isDigitPresent = false;
-  if (isFinite(+option)) {
-    isDigitPresent = true;
-  }
-
-  if (!isOneOfBothPresent(option) && !isDigitPresent) {
+  const isValueAbsent = isDigitAbsent(option);
+  if (!isOneOfBothPresent(option) && isValueAbsent) {
     const usage = 'usage: head [-n lines | -c bytes] [file ...]';
     throw {
       message: `head: illegal option -- ${letter}\n${usage}`
@@ -49,18 +50,9 @@ const groupBy = function (list) {
   return partitions;
 };
 
-const isDigitAbsent = function (options) {
-  const [option] = options;
-  let isDigitPresent = false;
-  if (isFinite(+option)) {
-    isDigitPresent = true;
-  }
-  return !isDigitPresent;
-};
-
 const isOptionFollowedByNumber = function (currentGroup, files) {
   const separateOptions = formatArgs(currentGroup);
-  const isNegativeNumberAbsent = isDigitAbsent(separateOptions);
+  const isNegativeNumberAbsent = isDigitAbsent(separateOptions[0].split(''));
   const [flag, value] = separateOptions;
   const isValueAbsent = !isFinite(value);
 

@@ -1,4 +1,8 @@
 **Do:**
+- [ ] Create contract for tail.
+- [ ] Investigate how tail works
+- [ ] create directory structure
+- [ ] Make tail work for default behaviour.
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
 **Maybe:**
