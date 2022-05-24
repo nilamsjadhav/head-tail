@@ -5,13 +5,13 @@ const { parseArgs, structureOption, getOption} = lib;
 
 describe('parseArgs', () => {
   it('should parse filename', () => {
-    const options = { key: 'count', value: 10 };
+    const options = { key: 'line', value: 10 };
     const expected = { filename: ['sample.txt'], option: options };
     assert.deepStrictEqual(parseArgs(['sample.txt']), expected);
   });
 
   it('should parse filename and -n option', () => {
-    const options = { key: 'count', value: 2 };
+    const options = { key: 'line', value: 2 };
     const expected = { filename: ['sample.txt'], option: options};
     assert.deepStrictEqual(parseArgs(['-n', '2', 'sample.txt']), expected);
   });
@@ -59,11 +59,11 @@ describe('findFiles', () => {
 
 describe('structureOption', () => {
   it('should give count as key and 10 as value.', () => {
-    const expected = { key: 'count', value: 10 };
+    const expected = { key: 'line', value: 10 };
     assert.deepStrictEqual(structureOption([]), expected);
   });
   it('should give count as key and 1 as value.', () => {
-    const expected = { key: 'count', value: 1 };
+    const expected = { key: 'line', value: 1 };
     assert.deepStrictEqual(structureOption(['-n', '1']), expected);
   });
 

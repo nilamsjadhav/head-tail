@@ -66,7 +66,7 @@ describe('areBothPresent', () => {
   
 });
 
-describe('isOptionsValid', () => {
+describe('isOptionsInvalid', () => {
   it('should throw error count is not present', () => {
     const usage = 'usage: head [-n lines | -c bytes] [file ...]';
     assert.throws(() => isOptionInvalid(['-b', '1']), {

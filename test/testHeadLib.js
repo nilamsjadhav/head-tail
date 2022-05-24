@@ -109,8 +109,7 @@ describe('displayOutput', () => {
 
     const result = [{ file: 'sample.txt', text: 'good', isRead: true }];
     displayOutput(result, mockedLog, mockedErrorLog);
-    console.log(actualContent, 'hello');
-    // assert.deepStrictEqual(actualContent, ['good']);
+    assert.deepStrictEqual(actualContent, ['good']);
   });
 
   it('should display multiple lines', () => {

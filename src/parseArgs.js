@@ -1,22 +1,15 @@
 const { validateArgs } = require('./validateArguments.js');
-const { findFiles } = require('./library.js');
-
-const formatArgs = (args) => {
-  return args.flatMap(
-    arg => arg.startsWith('-') ?
-      [arg.slice(0, 2), arg.slice(2)] : arg).filter(arg => arg);
-};
+const { findFiles, formatArgs } = require('./library.js');
 
 const structureOption = function (options) {
-  const keys = { '-n': 'count', '-c': 'bytes' };
+  const keys = { '-n': 'line', '-c': 'bytes' };
   if (options.length === 0) {
-    return { key: 'count', value: 10 };
+    return { key: 'line', value: 10 };
   }
-  const [option, num] = options;
-  const providedSwitch = option.match(/^-[a-z]/g);
   
-  if (providedSwitch === null) {
-    return { key: 'count', value: num };
+  const [option, num] = options;
+  if (isFinite(+option)) {
+    return { key: 'line', value: num };
   }
   const value = +num;
   const key = keys[option];
@@ -29,7 +22,7 @@ const getOption = function (options) {
   }
   const count = +options.join('');
 
-  if (isFinite(+options.join(''))) {
+  if (isFinite(count)) {
     return [options[0], Math.abs(count)];
   }
   return formatArgs(options);

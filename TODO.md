@@ -4,6 +4,8 @@
 **Maybe:**
 
 **Done:**
+- [x] Removed regular expressions.
+- [x] Refactor isOptionInvalid.
 - [x] add exitCode .
 - [x] Make head work for more than one file.
 - [X] Change error message when both arguments are not present.

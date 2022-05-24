@@ -1,10 +1,4 @@
-const { findFiles } = require('./library.js');
-
-const formatArgs = (args) => {
-  return args.flatMap(
-    arg => arg.startsWith('-') ?
-      [arg.slice(0, 2), arg.slice(2)] : arg).filter(arg => arg);
-};
+const { findFiles, formatArgs } = require('./library.js');
 
 const extractOptions = function(options, file){
   const index = options.indexOf(file[0]);
@@ -23,12 +17,17 @@ const isOneOfBothPresent = function (context) {
   return context.includes('-c') || context.includes('-n');
 };
 
-const isOptionInvalid = function(context){
-  const [option] = context;
-  const letter = option.match(/[a-z]/g);
-  const isDigitPresent = !/^-\d/.test(option);
+const isOptionInvalid = function (context) {
+  const formattedArgs = formatArgs(context);
+  const [option] = formattedArgs;
+  const [hypen, letter] = option.split('');
+  
+  let isDigitPresent = false;
+  if (isFinite(+option)) {
+    isDigitPresent = true;
+  }
 
-  if (!isOneOfBothPresent(option) && isDigitPresent) {
+  if (!isOneOfBothPresent(option) && !isDigitPresent) {
     const usage = 'usage: head [-n lines | -c bytes] [file ...]';
     throw {
       message: `head: illegal option -- ${letter}\n${usage}`
@@ -50,20 +49,23 @@ const groupBy = function (list) {
   return partitions;
 };
 
-const isDigitAbsent = function(options){
-  const isDigitAbsent = !/\d/.test(options[1]);
-  let isNegativeNumberPresent = true;
-  if (isDigitAbsent) {
-    isNegativeNumberPresent = /^-\d/.test(options[0]);
+const isDigitAbsent = function (options) {
+  const [option] = options;
+  let isDigitPresent = false;
+  if (isFinite(+option)) {
+    isDigitPresent = true;
   }
-  return isNegativeNumberPresent;
+  return !isDigitPresent;
 };
 
 const isOptionFollowedByNumber = function (currentGroup, files) {
   const separateOptions = formatArgs(currentGroup);
-  const isNegativeNumberPresent = isDigitAbsent(separateOptions);
+  const isNegativeNumberAbsent = isDigitAbsent(separateOptions);
+  const [flag, value] = separateOptions;
+  const isValueAbsent = !isFinite(value);
+
   const word = separateOptions.includes('-c') ? 'byte' : 'line'; 
-  if (!isNegativeNumberPresent) {
+  if (isNegativeNumberAbsent && isValueAbsent) {
     throw {
       message: `head: illegal ${word} count -- ${files[0]}`
     };
