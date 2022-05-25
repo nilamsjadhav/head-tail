@@ -6,7 +6,6 @@
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
 - [ ] Make function work for default behaviour.
-- [ ] Put function into separate file.
 - [ ] Implement -n option
 - [ ] Implement -c option
 - [ ] Implement -q option
@@ -14,9 +13,10 @@
 **Maybe:**
 
 **Done:**
-- [x] Implement function in test file.
-- [x] make function work for more than two lines
-- [x] make function work for a line.
+- [x] Put lastNLines function into separate file.
+- [x] Implement lastNLines function in test file.
+- [x] make lastNLines function work for more than two lines
+- [x] make lastNLines function work for a line.
 - [x] Removed regular expressions.
 - [x] Refactor isOptionInvalid.
 - [x] add exitCode .

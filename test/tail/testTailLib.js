@@ -1,6 +1,5 @@
 const assert = require('assert');
-
-const lastNLines = content => content;
+const { lastNLines } = require('../../src/tail/tailLib.js');
 
 describe('lastNLines', () => {
   it('should give a line', () => {
