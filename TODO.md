@@ -5,6 +5,14 @@
 - [ ] Make tail work for default behaviour.
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
+- [ ] Implement function in test file.
+- [ ] make function work for a line.
+- [ ] make function work for more than two lines
+- [ ] Put function into separate file.
+- [ ] Implement -n option
+- [ ] Implement -c option
+- [ ] Implement -q option
+- [ ] Implement -r option
 **Maybe:**
 
 **Done:**
