@@ -1,6 +1,6 @@
 const assert = require('assert');
 const lib = require('../../src/tail/tailLib.js');
-const { lastNLines, lastNCharacters, reverseContent } = lib;
+const { lastNLines, lastNCharacters, reverseContent, tailMain, getOperation } = lib;
 
 describe('lastNLines', () => {
   it('should give a line', () => {
@@ -51,5 +51,26 @@ describe('reverseContent', () => {
   });
   it('should reverse order of more than two lines', () => {
     assert.strictEqual(reverseContent('a\nb\nc\nd'), 'd\nc\nb\na');
+  });
+});
+
+describe('getOperation', () => {
+  it('should give lastNLines function', () => {
+    assert.strictEqual(getOperation('line'), lastNLines);
+  });
+  it('should give lastNCharacter function', () => {
+    assert.strictEqual(getOperation('byte'), lastNCharacters);
+  });
+});
+
+describe('tailMain', () => {
+  it('should give a last line', () => {
+    const option = { flag: 'line', value: 1 };
+    assert.strictEqual(tailMain('a\nb\nc\nd', option), 'd');
+  });
+
+  it('should give two last line', () => {
+    const option = { flag: 'line', value: 2 };
+    assert.strictEqual(tailMain('a\nb\nc\nd', option), 'c\nd');
   });
 });

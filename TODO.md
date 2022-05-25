@@ -1,13 +1,14 @@
 **Do:**
-- [ ] Create contract for tail.
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
 - [ ] Implement -q option
-- [ ] Implement -r option
-
+- [ ] Implement tailMain.
 **Maybe:**
 
 **Done:**
+- [x] Write a function to determine operation
+- [x] Implement -r option
+- [x] Create contract for tail.
 - [x] Make reverseContent work for more than two line.
 - [x] Investigate how tail works
 - [x] create directory structure
