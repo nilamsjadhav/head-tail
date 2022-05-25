@@ -1,6 +1,6 @@
 const assert = require('assert');
 const lib = require('../../src/tail/tailLib.js');
-const { lastNLines, lastNCharacters } = lib;
+const { lastNLines, lastNCharacters, reverseContent } = lib;
 
 describe('lastNLines', () => {
   it('should give a line', () => {
@@ -33,8 +33,13 @@ describe('lastNCharacters', () => {
     assert.strictEqual(lastNCharacters('good', 2), 'od');
   });
   it('should give some characters from previous line if last line have less character than specified value', () => {
-    assert.strictEqual(lastNCharacters('hello\nworld', 7), 'o\nworld');
     assert.strictEqual(lastNCharacters('a\nb\nc\nd', 3), 'c\nd');
+    assert.strictEqual(lastNCharacters('hello\nworld', 7), 'o\nworld');
   });
-  
+});
+
+describe('reverseContent', () => {
+  it('should reverse line', () => {
+    assert.strictEqual(reverseContent('hello'), 'hello');
+  });
 });

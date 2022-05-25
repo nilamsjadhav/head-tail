@@ -4,12 +4,15 @@
 - [ ] create directory structure
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
-- [ ] Implement -c option
 - [ ] Implement -q option
 - [ ] Implement -r option
+- [ ] Make reverseContent work for a line.
+- [ ] Make reverseContent work for two line.
+
 **Maybe:**
 
 **Done:**
+- [x] Implement -c option
 - [x] Make lastNCharacter function work for last two character.
 - [x] Make lastNCharacter function work for more than two characters.
 - [x] Implement -n option

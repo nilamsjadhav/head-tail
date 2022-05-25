@@ -11,7 +11,8 @@ const lastNCharacters = (content, numOfCharacters) => {
   return content.slice(index);
 };
 
+const reverseContent = content => content;
+
 exports.lastNLines = lastNLines;
-exports.splitLines = splitLines;
-exports.joinLines = joinLines;
 exports.lastNCharacters = lastNCharacters;
+exports.reverseContent = reverseContent;
