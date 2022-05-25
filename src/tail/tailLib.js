@@ -2,16 +2,18 @@ const { splitLines, joinLines } = require('../head/library.js');
 
 const lastNLines = (content, numOfLines) => {
   const lines = splitLines(content, '\n');
-  const index = lines.length - numOfLines;
-  return joinLines(lines.slice(index), '\n');
+  return joinLines(lines.slice(-numOfLines), '\n');
 };
 
 const lastNCharacters = (content, numOfCharacters) => {
-  const index = content.length - numOfCharacters;
-  return content.slice(index);
+  return content.slice(-numOfCharacters);
 };
 
-const reverseContent = content => content;
+const reverseContent = content => {
+  const lines = splitLines(content, '\n');
+  lines.reverse();
+  return joinLines(lines);
+};
 
 exports.lastNLines = lastNLines;
 exports.lastNCharacters = lastNCharacters;
