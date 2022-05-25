@@ -1,5 +1,6 @@
 const assert = require('assert');
-const { lastNLines, splitLines, joinLines } = require('../../src/tail/tailLib.js');
+const lib = require('../../src/tail/tailLib.js');
+const { lastNLines, lastNCharacters } = lib;
 
 describe('lastNLines', () => {
   it('should give a line', () => {
@@ -20,35 +21,15 @@ describe('lastNLines', () => {
     const expected = '3\n4\n5\n6\n7\n8\n9\n10\n11\n12';
     assert.strictEqual(lastNLines(content, 10), expected);
   });
-
 });
 
-describe('splitLines', () => {
-  it('should split a line.', () => {
-    assert.deepStrictEqual(splitLines('hello', '\n'), ['hello']);
-    assert.deepStrictEqual(splitLines('bye', '\n'), ['bye']);
+describe('lastNCharacters', () => {
+  it('should give last one characters', () => {
+    assert.strictEqual(lastNCharacters('hello', 1), 'o');
+    assert.strictEqual(lastNCharacters('good', 1), 'd');
   });
-
-  it('should split content .', () => {
-    const content = 'good|thoughts';
-    assert.deepStrictEqual(splitLines(content, '|'), ['good', 'thoughts']);
-    assert.deepStrictEqual(splitLines('soar|high', '|'), ['soar', 'high']);
-  });
-
-  it('should split more than two lines.', () => {
-    assert.deepStrictEqual(splitLines('1\n2\n3', '\n'), ['1', '2', '3']);
-  });
-});
-
-describe('joinLines', () => {
-  it('should join a line.', () => {
-    assert.deepStrictEqual(joinLines(['hello'], '\n'), 'hello');
-    assert.deepStrictEqual(joinLines(['bye'], '\n'), 'bye');
-  });
-
-  it('should join two lines based on given separator.', () => {
-    const lines = ['good', 'thoughts'];
-    assert.deepStrictEqual(joinLines(lines, '\n'), 'good\nthoughts');
-    assert.deepStrictEqual(joinLines(['soar', 'high'], '\n'), 'soar\nhigh');
+  it('should give last two characters', () => {
+    assert.strictEqual(lastNCharacters('hello', 2), 'lo');
+    assert.strictEqual(lastNCharacters('good', 2), 'od');
   });
 });

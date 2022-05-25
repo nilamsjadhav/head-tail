@@ -5,13 +5,15 @@
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
 - [ ] separated string functions in another file.
-- [ ] Implement -n option
 - [ ] Implement -c option
 - [ ] Implement -q option
 - [ ] Implement -r option
 **Maybe:**
 
 **Done:**
+- [x] Make lastNCharacter function work for last two character.
+- [x] Make lastNCharacter function work for more than two characters.
+- [x] Implement -n option
 - [x] Make tail work for default behaviour.
 - [x] Put lastNLines function into separate file.
 - [x] Implement lastNLines function in test file.
