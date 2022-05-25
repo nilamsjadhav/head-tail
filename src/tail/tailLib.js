@@ -19,8 +19,15 @@ const getOperation = flag => flag === 'line' ? lastNLines : lastNCharacters;
 const tailMain = function (content, option) {
   const flag = option.flag;
   const value = option.value;
+  const isReverse = option.isReverse;
+
   const operation = getOperation(flag);
-  return operation(content, value);
+  const expectedContent = operation(content, value) || content;
+
+  if (isReverse) {
+    return reverseContent(expectedContent);
+  }
+  return expectedContent;
 };
 
 exports.lastNLines = lastNLines;

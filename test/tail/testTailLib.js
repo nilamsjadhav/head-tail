@@ -73,4 +73,24 @@ describe('tailMain', () => {
     const option = { flag: 'line', value: 2 };
     assert.strictEqual(tailMain('a\nb\nc\nd', option), 'c\nd');
   });
+
+  it('should give two last characters', () => {
+    const option = { flag: 'byte', value: 2 };
+    assert.strictEqual(tailMain('good', option), 'od');
+  });
+
+  it('should reverse given content', () => {
+    const option = { isReverse: true };
+    assert.strictEqual(tailMain('good\nthought', option), 'thought\ngood');
+  });
+
+  it('should reverse output of lastNLines', () => {
+    const option = {flag: 'line', value: 2, isReverse: true };
+    assert.strictEqual(tailMain('a\nb\nc', option), 'c\nb');
+  });
+  
+  it('should reverse output of lastNCharacters', () => {
+    const option = {flag: 'byte', value: 2, isReverse: true };
+    assert.strictEqual(tailMain('a\nb\nc', option), 'c\n');
+  });
 });
