@@ -1,9 +1,11 @@
 const splitLines = (content, separator) => content.split(separator);
 
+const joinLines = (lines, separator) => lines.join(separator);
+
 const lastNLines = (content, numOfLines) => {
   const lines = splitLines(content, '\n');
   const index = lines.length - numOfLines;
-  return lines.slice(index).join('\n');
+  return joinLines(lines.slice(index), '\n');
 };
 
 exports.lastNLines = lastNLines;

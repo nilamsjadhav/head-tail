@@ -2,9 +2,9 @@
 - [ ] Create contract for tail.
 - [ ] Investigate how tail works
 - [ ] create directory structure
-- [ ] Make tail work for default behaviour.
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
+- [ ] separated string functions in another file.
 - [ ] Implement -n option
 - [ ] Implement -c option
 - [ ] Implement -q option
@@ -12,7 +12,7 @@
 **Maybe:**
 
 **Done:**
-- [x] Make function work for default behaviour.
+- [x] Make tail work for default behaviour.
 - [x] Put lastNLines function into separate file.
 - [x] Implement lastNLines function in test file.
 - [x] make lastNLines function work for more than two lines
