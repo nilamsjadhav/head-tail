@@ -5,9 +5,7 @@
 - [ ] Make tail work for default behaviour.
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
-- [ ] Implement function in test file.
-- [ ] make function work for a line.
-- [ ] make function work for more than two lines
+- [ ] Make function work for default behaviour.
 - [ ] Put function into separate file.
 - [ ] Implement -n option
 - [ ] Implement -c option
@@ -16,6 +14,9 @@
 **Maybe:**
 
 **Done:**
+- [x] Implement function in test file.
+- [x] make function work for more than two lines
+- [x] make function work for a line.
 - [x] Removed regular expressions.
 - [x] Refactor isOptionInvalid.
 - [x] add exitCode .
