@@ -3,12 +3,12 @@ const lib = require('../../src/head/library.js');
 const { splitLines, joinLines, firstLines, getSeparator} = lib;
 
 describe('splitLines', () => {
-  it('should split a line.', () => {
+  it('should split content based on \n.', () => {
     assert.deepStrictEqual(splitLines('hello', '\n'), ['hello']);
     assert.deepStrictEqual(splitLines('bye', '\n'), ['bye']);
   });
 
-  it('should split two lines.', () => {
+  it('should split content based on |.', () => {
     const content = 'good|thoughts';
     assert.deepStrictEqual(splitLines(content, '|'), ['good', 'thoughts']);
     assert.deepStrictEqual(splitLines('soar|high', '|'), ['soar', 'high']);

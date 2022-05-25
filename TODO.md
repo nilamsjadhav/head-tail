@@ -5,7 +5,6 @@
 - [ ] Make tail work for default behaviour.
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
-- [ ] Make function work for default behaviour.
 - [ ] Implement -n option
 - [ ] Implement -c option
 - [ ] Implement -q option
@@ -13,6 +12,7 @@
 **Maybe:**
 
 **Done:**
+- [x] Make function work for default behaviour.
 - [x] Put lastNLines function into separate file.
 - [x] Implement lastNLines function in test file.
 - [x] make lastNLines function work for more than two lines
