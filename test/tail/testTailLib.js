@@ -25,7 +25,7 @@ describe('lastNCharacters', () => {
     assert.strictEqual(lastNCharacters('hello', 1), 'o');
     assert.strictEqual(lastNCharacters('good', 1), 'd');
   });
-  
+
   it('should give last two characters', () => {
     assert.strictEqual(lastNCharacters('hello', 2), 'lo');
     assert.strictEqual(lastNCharacters('good', 2), 'od');
@@ -45,5 +45,11 @@ describe('lastNCharacters', () => {
 describe('reverseContent', () => {
   it('should reverse line', () => {
     assert.strictEqual(reverseContent('hello'), 'hello');
+  });
+  it('should reverse order of two lines', () => {
+    assert.strictEqual(reverseContent('hello\nworld'), 'world\nhello');
+  });
+  it('should reverse order of more than two lines', () => {
+    assert.strictEqual(reverseContent('a\nb\nc\nd'), 'd\nc\nb\na');
   });
 });

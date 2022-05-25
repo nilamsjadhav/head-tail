@@ -11,8 +11,7 @@ const lastNCharacters = (content, numOfCharacters) => {
 
 const reverseContent = content => {
   const lines = splitLines(content, '\n');
-  lines.reverse();
-  return joinLines(lines);
+  return joinLines(lines.reverse(), '\n');
 };
 
 exports.lastNLines = lastNLines;

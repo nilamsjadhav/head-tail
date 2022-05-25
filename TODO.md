@@ -1,16 +1,16 @@
 **Do:**
 - [ ] Create contract for tail.
-- [ ] Investigate how tail works
-- [ ] create directory structure
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
 - [ ] Implement -q option
 - [ ] Implement -r option
-- [ ] Make reverseContent work for two line.
 
 **Maybe:**
 
 **Done:**
+- [x] Make reverseContent work for more than two line.
+- [x] Investigate how tail works
+- [x] create directory structure
 - [x] Make reverseContent work for a line.
 - [x] Implement -c option
 - [x] Make lastNCharacter function work for last two character.
