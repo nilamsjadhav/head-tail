@@ -7,7 +7,8 @@ const lastNLines = (content, numOfLines) => {
 };
 
 const lastNCharacters = (content, numOfCharacters) => {
-  return content.slice(content.length - numOfCharacters);
+  const index = content.length - numOfCharacters;
+  return content.slice(index);
 };
 
 exports.lastNLines = lastNLines;

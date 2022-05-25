@@ -4,7 +4,6 @@
 - [ ] create directory structure
 - [ ] Refactor firstNLines function.
 - [ ] Refactor parseArgs.
-- [ ] separated string functions in another file.
 - [ ] Implement -c option
 - [ ] Implement -q option
 - [ ] Implement -r option

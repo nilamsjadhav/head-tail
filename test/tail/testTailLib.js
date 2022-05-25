@@ -32,4 +32,9 @@ describe('lastNCharacters', () => {
     assert.strictEqual(lastNCharacters('hello', 2), 'lo');
     assert.strictEqual(lastNCharacters('good', 2), 'od');
   });
+  it('should give some characters from previous line if last line have less character than specified value', () => {
+    assert.strictEqual(lastNCharacters('hello\nworld', 7), 'o\nworld');
+    assert.strictEqual(lastNCharacters('a\nb\nc\nd', 3), 'c\nd');
+  });
+  
 });
