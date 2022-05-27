@@ -2,52 +2,56 @@ const lib = require('./library.js');
 const { splitLines, firstLines, joinLines, getSeparator } = lib;
 const { parseArgs } = require('./parseArgs.js');
 
-const firstNLines = function (content, separator, count) {
+const appendHeader = ({ file, headContent }) =>
+  `==> ${file} <==\n${headContent}\n`;
+
+const identity = ({ headContent }) => headContent;
+
+const decideFormatter = results =>
+  results.length > 1 ? appendHeader : identity;
+
+const firstNParts = function (content, separator, count) {
   const lines = splitLines(content, separator);
   const topContent = firstLines(lines, count);
   return joinLines(topContent, separator);
 };
 
-const readFile = function (readData, file, separator, value) {
+const headOfFile = function (readData, file, separator, { value }) {
   try {
     const content = readData(file, 'utf8');
-    const text = firstNLines(content, separator, value);
-    return { file, text, isRead: true };
-  } catch (error) {
-    const text = `head: ${file}: No such file or directory`;
-    return { file, text, isRead: false };
-  }
+    const headContent = firstNParts(content, separator, value);
+    return { file, headContent };
+  } catch (err) {
+    const error = `head: ${file}: No such file or directory`;
+    return { file, error };
+  } 
 };
 
-const displayOutput = function ( result, log, errorLog ) {
-  let exitCode = 0;
-  if (result.length === 1 && result[0].isRead) {
-    log(result[0].text);
-    return exitCode;
-  }
+const displayOutput = function ( headContent, log, errorLog ) {
+  const formatter = decideFormatter(headContent);  
 
-  result.forEach(element => {
-    if (element.isRead) {
-      log(`==> ${element.file} <==\n${element.text}\n`);
+  headContent.forEach(file => {
+    if (!file.error) {
+      log(formatter(file));
       return;
     }    
-    errorLog(element.text);
-    exitCode = 1;
+    errorLog(file.error);
   });
-  return exitCode;
 };
 
-const head = function (readFunc, log, errorLog, args) {
-  const { filename, option } = parseArgs(args);
+const getExitCode = files => files.some((file) => file.error);
+
+const head = function (args, read, log, errorLog) {
+  const { fileNames, option } = parseArgs(args);
   const separator = getSeparator(option);
-  const result = [];
 
-  for (let index = 0; index < filename.length; index++) {
-    result.push(readFile(readFunc, filename[index], separator, option.value));
-  }
-  return displayOutput(result, log, errorLog);
+  const headContent = fileNames.map((file) =>
+    headOfFile(read, file, separator, option));
+  
+  displayOutput(headContent, log, errorLog);
+  return getExitCode(headContent);
 };
 
-exports.firstNLines = firstNLines;
+exports.firstNParts = firstNParts;
 exports.head = head;
 exports.displayOutput = displayOutput;

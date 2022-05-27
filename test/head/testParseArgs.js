@@ -6,19 +6,19 @@ const { parseArgs, structureOption, getOption} = lib;
 describe('parseArgs', () => {
   it('should parse filename', () => {
     const options = { key: 'line', value: 10 };
-    const expected = { filename: ['sample.txt'], option: options };
+    const expected = { fileNames: ['sample.txt'], option: options };
     assert.deepStrictEqual(parseArgs(['sample.txt']), expected);
   });
 
   it('should parse filename and -n option', () => {
     const options = { key: 'line', value: 2 };
-    const expected = { filename: ['sample.txt'], option: options};
+    const expected = { fileNames: ['sample.txt'], option: options};
     assert.deepStrictEqual(parseArgs(['-n', '2', 'sample.txt']), expected);
   });
 
   it('should parse filename and -c option', () => {
     const options = { key: 'bytes', value: 2 };
-    const expected = {filename: ['sample.txt'], option: options };
+    const expected = {fileNames: ['sample.txt'], option: options };
     assert.deepStrictEqual(parseArgs(['-c', '2', 'sample.txt']), expected);
   });
 });

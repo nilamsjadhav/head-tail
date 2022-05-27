@@ -84,7 +84,7 @@ const validate = function (args, files) {
   return [currentPart, args];
 };
 
-const validateArgs = function(args){
+const validateArgs = function (args) {
   const files = findFiles(args);
   if (files.length === 0) {
     throw { message: 'usage: head [-n lines | -c bytes] [file ...]'};

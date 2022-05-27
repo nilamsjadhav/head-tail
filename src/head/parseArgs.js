@@ -29,10 +29,10 @@ const getOption = function (options) {
 };
 
 const parseArgs = function (args) {
-  const parameters = validateArgs(args);
-  const option = structureOption(getOption(parameters[0]));
-  const filename = findFiles(parameters[1]);
-  return { 'filename': filename, option };
+  const [options, filenames] = validateArgs(args);
+  const option = structureOption(getOption(options));
+  const fileNames = findFiles(filenames);
+  return { fileNames, option };
 };
 
 exports.parseArgs = parseArgs;

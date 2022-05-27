@@ -10,13 +10,17 @@ const getSeparator = function (option) {
 };
 
 const findFiles = function (args) {
-  const option = [];
-  for (let index = 0; index < args.length; index++) {
-    if (!(args[index].includes('-') || /\d$/.test(args[index]))) {
-      option.push(args[index]);
+  const files = [];
+  for (const arg of args) {
+    const isFlag = arg.includes('-');
+    const isNumericOption = /\d$/.test(arg);
+    const isOption = isFlag || isNumericOption;
+    
+    if (!isOption) {
+      files.push(arg);
     }
   }
-  return option;
+  return files;
 };
 
 const formatArgs = (args) => {

@@ -1,20 +1,13 @@
 const fs = require('fs');
 const { head } = require('./src/head/headLib.js');
 
-const main = () => {
-  const args = process.argv.slice(2);
-  let code = 0;
+const main = (args) => {
   try {
-    if (args.length === 0) {
-      throw { message: 'usage: head [-n lines | -c bytes] [file ...]'};
-    }
-    code = head(fs.readFileSync, console.log, console.error,
-      process.argv.slice(2));
+    process.exitCode = head(args, fs.readFileSync, console.log, console.error);
   } catch (error) {
-    console.log(error.message);
-    code = 1;
+    console.error(error.message);
+    process.exitCode = 1;
   }
-  return process.exit(code);
 };
 
-main();
+main(process.argv.slice(2));
