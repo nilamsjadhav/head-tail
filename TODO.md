@@ -30,7 +30,8 @@
 
 - ### TODO:
   - [ ] Refactor firstNLines function.
-  - [ ] Refactor parseArgs.
+  - [ ] Separate firstNLines function into two function as firstNBytes or firstNLines.
+  - [ ] Remove idea of separator from program.
 
 <br>
 
@@ -39,6 +40,11 @@
 <br>
 
 - ### DONE:
+  - [x] Refactor parseArgs.
+  - [x] Make validateArgs to only throw error instead of returning option and files.
+  - [x] areOptionsValid change name of arguments.
+  - [x] Rename appendHeader
+  - [x] Extract function from appendHeader that will creater take file and create header.
   - [x] Put lastNLines function into separate file.
   - [x] Implement lastNLines function in test file.
   - [x] make lastNLines function work for more than two lines

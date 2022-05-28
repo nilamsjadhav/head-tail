@@ -133,3 +133,22 @@ describe('displayOutput', () => {
     assert.deepStrictEqual(actualContent, [error]);
   });
 });
+
+describe('headOfFile', () => {
+  it('should give a object containing content and file name', () => {
+    const mockedReadFileSync = readData('a.txt', 'good');
+    const expected = { file: 'a.txt', headContent: 'good' };
+    const actual = lib.headOfFile(mockedReadFileSync, 'a.txt', '\n', 1);
+    assert.deepStrictEqual(actual, expected);
+  });
+
+  it('should give a object containing error and file name', () => {
+    const mockedReadFileSync = readData('a.txt', 'good');
+    const expected = {
+      file: 'b.txt',
+      error: 'head: b.txt: No such file or directory'
+    };
+    const actual = lib.headOfFile(mockedReadFileSync, 'b.txt', '\n', 1);
+    assert.deepStrictEqual(actual, expected);
+  });
+});

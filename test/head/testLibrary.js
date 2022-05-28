@@ -47,10 +47,10 @@ describe('firstLines', () => {
 
 describe('getSeparator', () => {
   it('should give newline separator when -n option given', () => {
-    assert.equal(getSeparator({key: 'line', value: 2}), '\n');
+    assert.equal(getSeparator({flag: 'line', count: 2}), '\n');
   });
   it('should give space separator when -c option given', () => {
-    assert.equal(getSeparator({key: 'bytes', value: 2}), '');
+    assert.strictEqual(getSeparator({flag: 'bytes', count: 2}), '');
   });
   it('should give newline separator when no option given', () => {
     assert.equal(getSeparator({}), '\n');

@@ -1,43 +1,59 @@
 const { findFiles, formatArgs } = require('./library.js');
 
-const extractOptions = function(options, file){
-  const index = options.indexOf(file[0]);
-  return options.slice(0, index);
+const combinationError = () => {
+  return { message: 'head: can\'t combine line and byte counts' };
 };
 
-const areBothPresent = function (context, presentOptions) {
+const illegalOptionError = (letter) => {
+  const usage = 'usage: head [-n lines | -c bytes] [file ...]';
+  return { message: `head: illegal option -- ${letter}\n${usage}` };
+};
+
+const illegalCountError = (word, file) => {
+  return { message: `head: illegal ${word} count -- ${file}`};
+};
+
+const usage = () => {
+  return { message: 'usage: head [-n lines | -c bytes] [file ...]'};
+};
+
+const extractOptions = function(args, file){
+  const index = args.indexOf(file[0]);
+  return args.slice(0, index);
+};
+
+const areBothOptionsPresent = (options) => 
+  options.includes('-n') && options.includes('-c');
+
+const assertBothPresent = function (context, presentOptions) {
   const options = context.concat(presentOptions).join(' ');
-  const areBothPresent = options.includes('-n') && options.includes('-c');
-  if (areBothPresent) {
-    throw { message: 'head: can\'t combine line and byte counts' };
+
+  if (areBothOptionsPresent(options)) {
+    throw combinationError();
   }
 };
 
-const isOneOfBothPresent = function (context) {
-  return context.includes('-c') || context.includes('-n');
-};
+const isOneOfBothPresent = context => 
+  context.includes('-c') || context.includes('-n');
 
-const isDigitAbsent = function (options) {
-  const [hypen, option] = options;
+const isDigitAbsent = options => {
+  const [, option] = options;
   return !isFinite(+option);
 };
 
-const isOptionInvalid = function (context) {
+const assertInvalidOption = function (context) {
   const formattedArgs = formatArgs(context);
   const [option] = formattedArgs;
-  const [hypen, letter] = option.split('');
+  const letter = option[1];
   
   const isValueAbsent = isDigitAbsent(option);
   if (!isOneOfBothPresent(option) && isValueAbsent) {
-    const usage = 'usage: head [-n lines | -c bytes] [file ...]';
-    throw {
-      message: `head: illegal option -- ${letter}\n${usage}`
-    };
+    throw illegalOptionError(letter);
   }
 };
 
-const areOptionsValid = function(options1, options2){
-  return isOptionInvalid(options1) && isOptionInvalid(options2);
+const areOptionsValid = function (options1, options2) {
+  return assertInvalidOption(options1) && assertInvalidOption(options2);
 };
 
 const groupBy = function (list) {
@@ -53,19 +69,18 @@ const groupBy = function (list) {
 const isOptionFollowedByNumber = function (currentGroup, files) {
   const separateOptions = formatArgs(currentGroup);
   const isNegativeNumberAbsent = isDigitAbsent(separateOptions[0].split(''));
-  const [flag, value] = separateOptions;
+  const value = separateOptions[1];
   const isValueAbsent = !isFinite(value);
 
   const word = separateOptions.includes('-c') ? 'byte' : 'line'; 
+
   if (isNegativeNumberAbsent && isValueAbsent) {
-    throw {
-      message: `head: illegal ${word} count -- ${files[0]}`
-    };
+    throw illegalCountError(word, files[0]);
   }
 };
 
 const validateOptions = function(currentGroup, nextGroup, files){
-  areBothPresent(currentGroup, nextGroup);
+  assertBothPresent(currentGroup, nextGroup);
   areOptionsValid(currentGroup, nextGroup, files);
   isOptionFollowedByNumber(currentGroup, files);
 };
@@ -81,20 +96,19 @@ const validate = function (args, files) {
     const nextOptions = nextPart || files;
     validateOptions(currentPart, nextPart, nextOptions);
   }
-  return [currentPart, args];
 };
 
 const validateArgs = function (args) {
   const files = findFiles(args);
   if (files.length === 0) {
-    throw { message: 'usage: head [-n lines | -c bytes] [file ...]'};
+    throw usage();
   }
-  return validate(args, files);
+  validate(args, files);
 };
 
 exports.validateArgs = validateArgs;
-exports.areBothPresent = areBothPresent;
-exports.isOptionInvalid = isOptionInvalid;
+exports.assertBothPresent = assertBothPresent;
+exports.assertInvalidOption = assertInvalidOption;
 exports.isOptionFollowedByNumber = isOptionFollowedByNumber;
 exports.extractOptions = extractOptions;
 exports.validate = validate;

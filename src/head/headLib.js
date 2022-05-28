@@ -1,25 +1,29 @@
 const lib = require('./library.js');
 const { splitLines, firstLines, joinLines, getSeparator } = lib;
-const { parseArgs } = require('./parseArgs.js');
+const { parser } = require('./parseArgs.js');
+const { validateArgs } = require('./validateArguments.js');
 
-const appendHeader = ({ file, headContent }) =>
-  `==> ${file} <==\n${headContent}\n`;
+const structureHeader = (file) => `==> ${file} <==\n`;
+
+const formatContent = ({ file, headContent }) => 
+`${structureHeader(file)}${headContent}\n`;
 
 const identity = ({ headContent }) => headContent;
 
 const decideFormatter = results =>
-  results.length > 1 ? appendHeader : identity;
+  results.length > 1 ? formatContent : identity;
 
-const firstNParts = function (content, separator, count) {
+const firstNParts = (content, separator, count) => {
   const lines = splitLines(content, separator);
   const topContent = firstLines(lines, count);
   return joinLines(topContent, separator);
 };
 
-const headOfFile = function (readData, file, separator, { value }) {
+const headOfFile = function (readData, file, separator, { count }) {
+  let content;
   try {
-    const content = readData(file, 'utf8');
-    const headContent = firstNParts(content, separator, value);
+    content = readData(file, 'utf8');
+    const headContent = firstNParts(content, separator, count);
     return { file, headContent };
   } catch (err) {
     const error = `head: ${file}: No such file or directory`;
@@ -42,11 +46,12 @@ const displayOutput = function ( headContent, log, errorLog ) {
 const getExitCode = files => files.some((file) => file.error);
 
 const head = function (args, read, log, errorLog) {
-  const { fileNames, option } = parseArgs(args);
-  const separator = getSeparator(option);
+  validateArgs(args);
+  const { fileNames, options } = parser(args);
+  const separator = getSeparator(options);
 
   const headContent = fileNames.map((file) =>
-    headOfFile(read, file, separator, option));
+    headOfFile(read, file, separator, options));
   
   displayOutput(headContent, log, errorLog);
   return getExitCode(headContent);
@@ -55,3 +60,4 @@ const head = function (args, read, log, errorLog) {
 exports.firstNParts = firstNParts;
 exports.head = head;
 exports.displayOutput = displayOutput;
+exports.headOfFile = headOfFile;

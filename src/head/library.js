@@ -6,7 +6,7 @@ const firstLines = (lines, limit) => lines.slice(0, limit);
 
 const getSeparator = function (option) {
   const separators = { 'line': '\n', 'bytes': '' };
-  return option.key === undefined ? '\n' : separators[option.key];
+  return option.flag === undefined ? '\n' : separators[option.flag];
 };
 
 const findFiles = function (args) {
@@ -23,10 +23,19 @@ const findFiles = function (args) {
   return files;
 };
 
+const isOption = (arg) => arg.startsWith('-');
+
+const isNumericOption = (option) => isOption(option) && isFinite(option);
+
+const groupOptionValue = (arg) => {
+  if (isNumericOption(arg)) {
+    return ['-n', Math.abs(+arg)];
+  }
+  return isOption(arg) ? [arg.slice(0, 2), arg.slice(2)] : arg;
+};
+
 const formatArgs = (args) => {
-  return args.flatMap(
-    arg => arg.startsWith('-') ?
-      [arg.slice(0, 2), arg.slice(2)] : arg).filter(arg => arg);
+  return args.flatMap(groupOptionValue).filter(arg => arg);
 };
 
 exports.firstLines = firstLines;

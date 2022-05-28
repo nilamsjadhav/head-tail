@@ -1,40 +1,37 @@
-const { validateArgs } = require('./validateArguments.js');
-const { findFiles, formatArgs } = require('./library.js');
+const { formatArgs } = require('./library.js');
 
-const structureOption = function (options) {
+const structureOption = function ({option, count}) {
   const keys = { '-n': 'line', '-c': 'bytes' };
-  if (options.length === 0) {
-    return { key: 'line', value: 10 };
+  if (option === undefined) {
+    return { flag: 'line', count: 10 };
   }
-  
-  const [option, num] = options;
-  if (isFinite(+option)) {
-    return { key: 'line', value: num };
-  }
-  const value = +num;
-  const key = keys[option];
-  return { key, value};
+  const flag = keys[option];
+  return { flag, count};
 };
 
-const getOption = function (options) {
-  if (options.length === 0) {
-    return options;
-  }
-  const count = +options.join('');
+const isOption = (flag) => flag.startsWith('-');
 
-  if (isFinite(count)) {
-    return [options[0], Math.abs(count)];
+const getCount = (arg) => +arg;
+
+const parseArgs = (args) => {
+  const separatedArgs = formatArgs(args);
+  let option, count, index = 0;
+
+  while (args.length > index && isOption(separatedArgs[index])) {
+    option = separatedArgs[index];
+    count = getCount(separatedArgs[index + 1]);
+    index += 2;
   }
-  return formatArgs(options);
+  const fileNames = separatedArgs.slice(index);
+  return { option, count, fileNames };
 };
 
-const parseArgs = function (args) {
-  const [options, filenames] = validateArgs(args);
-  const option = structureOption(getOption(options));
-  const fileNames = findFiles(filenames);
-  return { fileNames, option };
+const parser = function (args) {
+  const {option, count, fileNames} = parseArgs(args);
+  const options = structureOption({ option, count });
+  return { fileNames, options };
 };
 
-exports.parseArgs = parseArgs;
+exports.parser = parser;
 exports.structureOption = structureOption;
-exports.getOption = getOption;
+exports.parseArgs = parseArgs;
